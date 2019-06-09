@@ -1,0 +1,950 @@
+/* VARS 
+-------------------------------------------------------------- */
+$page_width: 				100%;
+$body_width:				1100px;
+$gutter:					40px;
+$controls_width:			40px;
+$body_pad:					20px;
+$main_width: 				680px;
+$side_width: 				$body_width - $main_width - $gutter;
+
+$trans:	  					1s;
+
+/* COLORS  */
+$text_main: 				#444;									/* DARK GREY  */
+$text_accent: 				#ea8667;								/* RED  */
+$page_bg:					#f5f3e9;
+$body_bg:					#fff;
+
+$font_main:					'Lato';
+$font_header:				'Lato';
+
+
+/* MIX-INS 
+-------------------------------------------------------------- */
+@mixin font($font: $font_main, $font_weight: 300){
+	font-family: $font, sans-serif;
+	font-weight: $font_weight;
+}
+
+@mixin link_trans($color: $text_main, $hov_color: $text_accent){
+	cursor: pointer;
+	transition: color $trans ease;
+	color: $color;
+	&:hover{color: $hov_color; transition: none;}
+}
+
+.inline_block{
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+}
+
+
+.clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+
+
+/* COMMON 
+-------------------------------------------------------------- */
+body{
+	@include font;
+	background: $page_bg;  
+	color: $text_main;
+	font-size: 18px;
+}
+
+a{
+	@include link_trans;
+	color: $text_main;
+	text-decoration: none;
+	
+	&:hover{color: $text_accent;}
+} 
+
+li a.active,
+li.opened span.nolink{color: $text_accent;}
+
+h1{
+	@include font($font_header);
+	font-weight: 100;
+	margin-bottom: 40px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+h1.main-title{
+	text-align: center;
+	font-size: 60px;
+	font-style: italic;
+	font-weight: 100;
+	margin-bottom: 40px;
+}
+
+
+p{letter-spacing: normal; font-size: 14px; line-height: 18px; position: relative;}
+
+ul, ul.menu, ul.menu li{list-style: none; text-align: inherit;}
+
+.bull{
+	color: lighten($text_main, 60%);
+	padding: 0 10px;
+}
+
+/* HEADER 
+-------------------------------------------------------------- */
+#header{
+	position: fixed;
+	background-color: $text_accent;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	z-index: 999;
+	
+	.bot{
+		width: 100%;
+		height: 35px;
+		margin-top: 40px;
+		background-color: rgba(245, 243, 233, .9);
+	}
+	
+
+}
+
+#header-inner{
+	float: right;
+}
+
+#u-big, #d-big{
+	position: absolute;
+	z-index: 100;
+}
+
+#u-big{
+	top: 60px;
+	left: 50%;
+	margin-left: -($main_width/2) - 280px;
+}
+
+#d-big{
+	top: 80px;
+	left: 50%;
+	margin-left: -170px;
+}
+
+#ud-sm{
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	#logo{
+		right: inherit;
+		margin: 0;
+		line-height: normal;
+		width: 180px;
+		top: 0;
+		left: 240px;
+
+		.slogan{
+			margin-top: 5px;
+		}
+	}
+}
+
+#u-sm{
+	position: absolute;
+	top: 10px;
+	left: 20px;
+}
+
+#d-sm{
+	position: absolute;
+	top: 20px;
+	left: 155px;
+}
+
+
+#logo{
+	font-size: 16px;
+	position: absolute;
+
+	a{
+		@include link_trans($text_main, #fff);
+		text-transform: uppercase;
+
+		span{
+			display: block;
+			margin-left: 20px;
+		}
+	}
+
+	.slogan{
+		color: $text_accent;
+		font-style: italic;
+		margin-top: 10px;
+		margin-left: 60px;
+	}
+}
+
+#block-system-main-menu{
+
+	ul{
+		font-size: 0;
+		position: relative;
+	}
+
+	li{
+		float: left;
+		list-style: none;
+		position: relative;
+		margin: 0;
+		padding: 0;
+
+		ul{
+			display: none;
+			position: absolute;
+			top: 40px;
+			
+			left: 0;
+			width: 150px;
+			
+			li{
+				display: block;
+				float: none;
+			}
+
+			a{
+				@include link_trans($text_accent);
+				display: block;
+				background-color: #555;
+				color: $page_bg;
+				border-bottom: darken(#555, 5%) 1px solid;
+			}
+
+		}
+
+		&:hover ul{
+			display: block;
+		};
+
+		&.first span{
+			padding-left: 30px;
+		}
+
+		&.last a{
+			padding-right: 30px;
+		}
+
+		span, a{
+			@include link_trans;
+			@extend .inline_block;
+			font-size: 14px; 			
+			font-weight: 300;
+			padding: 0 20px;
+			cursor: pointer;
+			text-transform: uppercase;
+
+			&:hover,
+			&.active{
+				color: #fff;
+			}
+		}
+
+	}
+}
+
+.menu-toggle{
+	display: none;
+	cursor: pointer;
+}
+
+.front{
+	
+	#main{
+		padding-top: 400px;
+	}
+
+	#header{
+		.bot{
+			display: none;
+		}
+	}
+
+	#logo{
+		top: 150px;
+		right: 50%;
+		margin-right: -330px;
+	}
+
+	#ud-sm{
+		top: -180px;
+	}
+
+}
+
+
+
+
+/* MAIN 
+-------------------------------------------------------------- */
+#main-content{
+	width: $body_width;
+	margin: 0 auto;
+	z-index: 1;
+	position: relative;
+}
+
+#main{
+	padding-top: 160px;
+}
+
+.sidebar-first #main{
+	float: left;
+	width: $main_width;
+	margin: 0 $gutter 0 0;
+}
+
+.sidebar-first #side{
+	float: left;
+	width: $side_width;
+}
+
+
+
+/* SIDE
+-------------------------------------------------------------- */
+.side-content{
+	
+	
+	
+
+	h2{
+		color: $text_accent;
+		font-size: 30px;
+		font-weight: 100;
+		text-align: center;
+	}
+
+	.pane-block{
+		background-color: darken($page_bg, 8%);
+		padding: 0 0 20px;
+		margin-bottom: 20px;
+		/*border-bottom: #ccc 1px solid;*/
+		position: relative;
+		padding: 40px ;
+	}
+}
+
+#block-menu-menu-categories,
+#block-views-content-block-1{
+	text-align: center;
+
+	ul li{
+		margin: 0;
+		padding: 0;
+	}
+
+	.more-link{
+		text-align: center;
+	}
+}
+
+#follow{
+	text-align: center;
+}
+
+#search-block-form{
+	
+	input[type="text"]{
+		width: 80%; 
+		float: left;
+		margin-right: 4px;
+	}	
+}
+
+.pane-menu-menu-categories{
+	text-align: center;
+}
+
+#block-block-2{
+	
+	img{
+		width: 100%;
+		height: auto;	
+	}
+}
+
+.pane-block-2{
+	img{
+		width: 100%;
+		height: auto;
+	}
+}
+
+
+
+/* CONTACT
+-------------------------------------------------------------- */
+
+/* BIO
+-------------------------------------------------------------- */
+
+/* BLOG POST
+-------------------------------------------------------------- */
+
+.link, 
+.post{
+	margin-bottom: 60px;
+	padding-bottom: 60px;
+	/*border-bottom: #f3b99f dashed 1px;*/
+	position: relative;
+
+	.header{
+		h2{
+			font-size: 24px;
+			font-weight: 300;
+			margin-bottom: 5px;
+		}
+
+		
+	}
+	.post-date{
+		/*font-size: 14px;
+		color: lighten($text_main, 40%);*/
+		color: $text_accent;
+		font-size: 40px;
+		position: absolute;
+		top: -20px;
+		left: -20px;
+		font-weight: 100;
+	}
+
+	.post-date-comments{
+		font-size: 14px;
+		color: lighten($text_main, 40%);
+	}
+	
+	.comments_btn{
+		a{
+			@include link_trans($text_accent, $text_main);
+			font-style: italic;
+			font-size: 14px;
+		}
+	}
+
+	.body{
+		font-size: 14px;
+	}
+
+	.footer{
+		clear: both;
+		margin-top: 10px;
+		border-top: #ccc dashed 1px;
+		font-size: 12px;
+		padding-top: 10px;
+
+		h3{
+			font-weight: 400; 
+			font-size: 12px;
+			text-transform: uppercase;
+		}
+	}
+
+	.tags{
+		width: 70%;
+		float: left;
+
+		h3{
+			display: inline-block;
+		}
+
+		a{
+			margin-left: 10px;
+		}
+	}
+
+	.share{
+		float: right;
+		text-align: right;
+
+		h3{
+			margin-bottom: 5px;
+		}
+
+		.service-links{
+			float: right;
+		}
+	}
+
+	.service-links{
+		display: none;
+	}
+}
+
+.post-teaser{
+	.header{
+		margin:  ($gutter * 3) 5px 20px -20px;
+		border-left: $text_accent solid 5px;
+		padding: 0 0 0 15px;
+	}
+
+	.main{
+		width: $main_width;
+		float: left;
+		margin-right: 20px;
+	}
+
+	.image{
+		
+		background-color: #fff;
+		padding: 40px;
+
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	.side{
+		float: left;
+		width: $side_width;
+	}
+
+	.read-more{
+		text-align: right;
+		margin: 10px 0;
+		font-size: 12px;
+		font-weight: 400;
+		text-transform: uppercase;
+
+		a{
+			color: $text_accent;
+
+			&:hover{
+				color: $text_main;
+			}
+		}
+	}
+
+	.footer{
+		
+		a{
+			@include link_trans(lighten($text_main, 40%), $text_accent);
+		}
+
+		.tags{
+			width: 30%;
+			font-weight: 400;
+
+			a{
+				display: block;
+				padding: 0;
+				margin: 0;
+				text-transform: uppercase; 
+			}
+		}
+	}
+}
+
+.post-full{
+
+	.header{
+		text-align: center;
+		padding: 0 40px;
+
+		h1{
+			font-size: 40px;
+			font-weight: 100;
+			margin-bottom: 5px;
+		}
+	}
+
+	.summary{
+		font-size: 14px;
+		padding: 20px 0;
+		border-top: #ccc 1px solid;
+		margin-top: 20px;
+		text-align: left;
+	}
+
+	.body{
+		background-color: #fff;
+		padding: 40px;
+
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+
+
+
+
+
+/* LINKS
+-------------------------------------------------------------- */
+.link{
+	
+	.image{
+		@extend .clearfix;
+		float: left;
+		margin-right: 20px;
+	}
+}
+
+
+
+
+/* COMMENTS
+-------------------------------------------------------------- */
+.comments-holder{
+	width: $main_width;
+	margin: 30px auto 0;
+
+	.header{
+		font-style: italic;
+		border-bottom: #ccc solid 1px;
+		
+
+		h2{
+			
+			float: left;
+			font-size: 30px;
+			font-weight: 300;
+		}
+
+		.add-comment-btn{
+			color: $text_accent;
+			float: right;
+			cursor: pointer;
+			text-transform: uppercase;
+			margin-top: 10px;
+
+		}
+	}
+}
+
+.comment-form-holder{
+	padding: 30px 0 30px;
+	display: none;
+	border-bottom: #ccc dashed 1px;
+
+	form{
+		width: 400px;
+		margin: 0 auto;
+		padding: 30px;
+	}
+}
+.pane-node-comments{
+	padding-top: 40px;
+}
+.comments{
+	width: 600px;
+	margin: 0 auto;
+	padding: 30px 0;
+}
+.comment{
+	width: 430px;
+	margin-bottom: 40px;
+
+	.comment-header{
+		margin:  0 5px 20px -20px;
+		border-left: $text_accent solid 5px;
+		padding: 0 0 0 15px;
+
+		h2{
+			font-size: 20px;
+			font-weight: 300;
+		}
+
+		h3{
+			font-size: 14px;
+			color: $text_accent;
+			font-weight: 300;
+			font-style: italic;
+		}
+
+		
+	}
+
+	.website a{
+		color: $text_accent;
+		float: left;
+
+		&:hover{
+			color: $text_main;
+		};
+	}
+
+	.submitted{
+		padding: 5px 10px;
+		background-color: darken($page_bg, 2%);
+		font-size: 10px;
+		text-transform: uppercase;
+	}
+
+	.body{
+
+	}
+	
+	.field-name-comment-body{
+		padding: 0;
+		font-size: 14px;
+	}
+
+	.footer{
+		clear: both;
+		margin-top: 10px;
+		border-top: #ccc dashed 1px;
+		font-size: 12px;
+		padding-top: 10px;
+		text-transform: uppercase;
+
+		ul.links{
+			float: right;
+			text-align: right;
+		}
+	}
+}
+
+
+
+/* SERVICE LINKS
+-------------------------------------------------------------- */
+.service-links{
+
+	li{
+		float: left;
+		margin-left: 10px;
+	}
+}
+
+/* FOOTER
+-------------------------------------------------------------- */
+html, body, #wrapper { height: 100%; }
+body > #wrapper {height: auto; min-height: 100%;}
+#main { padding-bottom: 50px; }
+#footer { 
+	position: relative;
+	margin-top: -50px;
+	height: 50px;
+	clear:both;
+
+	text-align: center;
+	line-height: 50px;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+/* SOCIAL
+-------------------------------------------------------------- */
+.social-icons{
+
+	.icon{
+		
+		background: $text_accent url(../images/bb_social.png) no-repeat;
+		height: 30px;
+		width: 30px;
+		display: inline-block;
+		border-radius: 15px;
+		margin: 10px 0 0 10px;
+
+		transition: background-color $trans ease;
+		&:hover{background-color: #555; transition: none;}
+	}
+
+	.twitter{background-position: -30px 0;}
+	.instagram{background-position: -60px 0;}
+	.youtube{background-position: -90px 0;}
+	.pinterest{background-position: -120px 0;}
+}
+
+
+
+/* FORMS
+-------------------------------------------------------------- */
+form{
+}
+
+.form-item{margin-top: 0;}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea{
+	width: 98%;
+	padding: 5px 1%;
+	border: none;
+	background-color: lighten($page_bg, 10%);
+	font-size: 18px;
+	font-family: $font_main;
+	font-weight: 300;
+	color: lighten($text_main, 50%);
+	box-shadow: 1px 1px 1px #ccc inset;
+	font-family: 'Lato', sans-serif;
+
+	&:focus{
+		background-color: lighten($page_bg, 5%);
+		color: $text_main;
+	};
+}
+
+label{
+	font-size: 16px;
+	font-style: italic;
+	font-weight: 300;
+}
+
+input[type="submit"]{
+	background-color: $text_accent;
+	color: $page_bg;
+	padding: 15px 20px 10px;
+	cursor: pointer;
+	font-size: 16px;
+	letter-spacing: 2px;
+	font-style: italic;
+	font-weight: 300;
+	border: none;
+	margin-left: 5px;
+	border-radius: 3px;
+
+	&:hover{
+		background-color: lighten($page_bg, 10%);
+		color: $text_accent;
+	};
+}
+
+.form-actions{
+	text-align: right;
+	margin-bottom: 0;
+}
+
+
+
+
+/* EXTRAS
+-------------------------------------------------------------- */
+body.cke_show_borders{width: 740px !important; min-width: 740px; margin: 0 auto;}
+
+.image-post_full {
+	position: relative;
+	z-index: 1;
+}
+.hover-pinterest {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 999;
+	background-image: url('../images/search_btn.png');
+	/*background-position: 50% 50%;*/
+	background-repeat: no-repeat;
+	display: none;
+	
+}
+.pin-it-link {
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+
+/* MOBILE
+-------------------------------------------------------------- */
+@media only screen and (max-width: 768px) {
+	body{}
+
+	#main{
+		width: 100%;
+		margin: 0;
+	}
+	#header{
+		text-align: center;
+		margin-bottom: 0;
+	}
+
+	#logo{
+		float: none;
+		margin: 0 0 10px;
+	}
+
+
+	#nav{
+		display: none;
+
+		li{
+			list-style: none;
+			float: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+	}
+
+	.menu-toggle{display: block; margin-bottom: 10px;}
+	
+	.gallery-full .images .field-name-field-gallery-images .field-item {
+		position: relative !important;
+		display: block !important;
+		top: auto;
+		left: auto; 
+		line-height: 0;
+		margin-bottom: 10px;
+
+	}
+
+	.gallery-full .images .field-name-field-gallery-images .field-item img{
+		width: 100%;
+		height: auto;
+	}
+
+	#controls{display: none; visibility: hidden;}
+
+	.view-id-videos{
+		/*@extend .clearfix;*/
+		padding: 10px;
+	}
+	.video-teaser{
+		float: none;
+		text-align: center;
+		width: 100%;
+		margin: 0 0 30px;
+
+		.video{
+			width: 100%;
+
+			img{
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		h2{
+			font-size: 10px;
+			text-transform: uppercase;
+			min-height: 60px;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
